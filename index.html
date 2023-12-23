@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #universe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/ptl9mN8.gif'); /* Replace with your starry background image URL */
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .planet {
+      background-image: url('https://i.imgur.com/i5rvdr2.gif');
+      position: absolute;
+      border-radius: 50%;
+      transform-origin: center;
+      animation: rotate infinite linear;
+      background-size: cover;
+    }
+    #sun {
+      background-image: url('https://i.imgur.com/o7Wxy7U.gif'); /* Replace with imgur link for Sun */
+      width: 100px;
+      height: 100px;
+      top: calc(90% - 100px);
+      left: calc(70% - 50px);
+    }
+    .planet-size {
+      width: 29px;
+      height: 29px;
+    }
+    .planet-image {
+      background-image: url('https://i.imgur.com/xqB3X9V.gif'); /* Replace with imgur link for Mercury */
+    }
+    #mercury {
+      background-color: #808080;
+      animation-duration: 3s;
+    }
+    .planet-image-venus {
+      background-image: url('https://i.imgur.com/opYeOPg.gif'); /* Replace with imgur link for Venus */
+    }
+    #venus {
+      background-color: #E1DAB8;
+      animation-duration: 6s;
+    }
+    .planet-image-earth {
+      background-image: url('https://i.imgur.com/c7MtVEl.gif'); /* Replace with imgur link for Earth */
+    }
+    #earth {
+      background-color: #0000FF;
+      animation-duration: 9s;
+    }
+    .planet-image-mars {
+      background-image: url('https://i.imgur.com/7peCI4d.gif'); /* Replace with imgur link for Mars */
+    }
+    #mars {
+      background-color: #FF0000;
+      animation-duration: 12s;
+    }
+    .planet-image-jupiter {
+      background-image: url('https://i.imgur.com/7bHb9qy.gif'); /* Replace with imgur link for Jupiter */
+    }
+    #jupiter {
+      background-color: #FF5733;
+      width: 40px;
+      height: 40px;
+      animation-duration: 24s;
+    }
+    .planet-image-saturn {
+      background-image: url('https://i.imgur.com/mfYNeb8.gif'); /* Replace with imgur link for Saturn */
+    }
+    #saturn {
+      background-color: #FFD700;
+      width: 35px;
+      height: 35px;
+      animation-duration: 40s;
+    }
+    .planet-image-uranus {
+      background-image: url('https://i.imgur.com/2HOeIfh.gif'); /* Replace with imgur link for Uranus */
+    }
+    #uranus {
+      background-color: #66CCFF;
+      animation-duration: 70s;
+    }
+    .planet-image-neptune {
+      background-image: url('https://i.imgur.com/asLa8LF.gif'); /* Replace with imgur link for Neptune */
+    }
+    #neptune {
+      background-color: #0000FF;
+      animation-duration: 110s;
+    }
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="universe"></div>
+  <script>
+    const universe = document.getElementById("universe");
+    const planets = [
+      { id: "sun", radius: 48, distance: 1, speed: 0.0001 },
+      { id: "mercury", radius: 57, distance: 145, speed: 0.1 },
+      { id: "venus", radius: 62, distance: 160, speed: 0.3 },
+      { id: "earth", radius: 66, distance: 170, speed: 1.9},
+      { id: "mars", radius: 70, distance: 190, speed: 0.11 },
+      { id: "jupiter", radius: 80, distance: 200, speed: 0.14 },
+      { id: "saturn", radius: 90, distance: 230, speed: 0.240 },
+      { id: "uranus", radius: 100, distance: 260, speed: 0.090 },
+      { id: "neptune", radius: 107, distance: 290, speed: 0.080 },
+    ];
+
+    planets.forEach(planet => {
+      const newPlanet = document.createElement("div");
+      newPlanet.className = "planet";
+      newPlanet.classList.add("planet-size", "planet-image-" + planet.id);
+      newPlanet.id = planet.id;
+      universe.appendChild(newPlanet);
+    });
+
+    function animatePlanets() {
+      const currentTime = Date.now();
+      planets.forEach(planet => {
+        const planetElement = document.getElementById(planet.id);
+        const angle = (currentTime * planet.speed) / 1000;
+        const x = planet.distance * Math.cos(angle);
+        const y = planet.distance * Math.sin(angle);
+        planetElement.style.left = universe.clientWidth / 2 + x - planet.radius + "px";
+        planetElement.style.top = universe.clientHeight / 2 + y - planet.radius + "px";
+      });
+      requestAnimationFrame(animatePlanets);
+    }
+
+    animatePlanets();
+  </script>
+</body>
+  </html>
+  
